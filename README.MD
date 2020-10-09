@@ -1,0 +1,1 @@
+Exercises using Java Streams and Functional API
