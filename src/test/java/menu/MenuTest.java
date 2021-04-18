@@ -9,6 +9,9 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 public class MenuTest {
 
@@ -40,7 +43,7 @@ public class MenuTest {
 
         List<Dish> top3Cal =
                 menu.stream()
-                        //.sorted((d1, d2) -> d2.getCalories() - d1.getCalories())
+                        .sorted((d1, d2) -> d2.getCalories() - d1.getCalories())
                         .sorted(Comparator.comparingInt(Dish::getCalories).reversed())
                         .limit(3)
                         //.collect(Collectors.toList());
@@ -51,6 +54,18 @@ public class MenuTest {
                     .mapToInt(Dish::getCalories)
                     .sum();
 
-        Assertions.assertEquals(TOTAL, result);
+        assertEquals(TOTAL, result);
+    }
+
+    @Test
+    @DisplayName("Present only vegs dishes")
+    public void shouldPresentOnlyVegs() {
+
+        boolean onlyVegs =
+                menu.stream()
+                    .filter(Dish::isVegetarian)
+                    .allMatch(Dish::isVegetarian);
+
+        assertTrue(onlyVegs);
     }
 }

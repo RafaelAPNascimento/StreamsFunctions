@@ -31,13 +31,6 @@ public class Menu {
         
         System.out.println(r);
     }
-
-    static void _m01() {
-
-        List<Dish> vegMenu =
-            menu.stream().filter(Dish::isVegetarian).collect(Collectors.toList());
-        System.out.println(vegMenu);
-    }
     
     // get all dishes above 350 kals, as array
     static void m02() {        
