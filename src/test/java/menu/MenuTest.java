@@ -68,4 +68,38 @@ public class MenuTest {
 
         assertTrue(onlyVegs);
     }
+
+    @Test
+    @DisplayName("Show how many types of dishes there are in menu")
+    public void shouldCalculateAllDistinctTypes() {
+
+        long types =
+            menu.stream()
+                .map(Dish::getType)
+                .distinct()
+                .count();
+
+        assertEquals(3, types);
+    }
+
+    @Test
+    @DisplayName("show 3 most caloric dishes")
+    public void shouldPresent3MostCaloricDishes() {
+
+        int kcals = 950 + 700 + 800;
+
+        List<Dish> most3calorics =
+            menu.stream()
+                .sorted(Comparator.comparing(Dish::getCalories).reversed())
+                .limit(3)
+                .collect(Collectors.toList());
+
+        int sum =
+                most3calorics.stream()
+                    .mapToInt(Dish::getCalories)
+                    .sum();
+
+        assertEquals(sum, kcals);
+    }
+
 }
