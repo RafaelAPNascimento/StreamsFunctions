@@ -102,4 +102,38 @@ public class MenuTest {
         assertEquals(sum, kcals);
     }
 
+    @Test
+    @DisplayName("does the menu have a veg option")
+    public void shouldReturnTrueForVegOption() {
+
+        boolean hasVeg =
+                menu.stream()
+                    .anyMatch(Dish::isVegetarian);
+
+        Assertions.assertTrue(hasVeg);
+    }
+
+    @Test
+    @DisplayName("find out whether the menu is healthy (that is, all dishes are below 1000 calories)")
+    public void shouldBeHealthyMenu() {
+
+        boolean healthy =
+                menu.stream()
+                    .allMatch(d -> d.getCalories() < 1000);
+
+        Assertions.assertTrue(healthy);
+    }
+
+    @Test
+    @DisplayName("How would you count the number of dishes in a stream using the map and reduce methods?")
+    public void shouldReturnTheNumberOfDishes() {
+
+        int expected = menu.size();
+        int actual =
+                menu.stream()
+                    .reduce(0, (n, d) -> n + 1, Integer::sum);
+
+        Assertions.assertEquals(expected, actual);
+    }
+
 }
