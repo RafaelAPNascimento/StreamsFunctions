@@ -11,6 +11,7 @@ import java.util.stream.Collectors;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.DynamicTest.dynamicTest;
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 public class MenuTest {
@@ -134,6 +135,20 @@ public class MenuTest {
                     .reduce(0, (n, d) -> n + 1, Integer::sum);
 
         Assertions.assertEquals(expected, actual);
+    }
+
+    @TestFactory
+    @DisplayName("Should return the 1st 2 meat dishes")
+    public List<DynamicTest> shouldRemoveDishesLessThan350Kcal() {
+
+        List<DynamicTest> allMeat =
+            menu.stream()
+                .filter(d -> d.getType() == Dish.Type.MEAT)
+                .limit(2)
+                .map(dish -> dynamicTest("Should be MEAT type", () -> assertEquals(dish.getType(), Dish.Type.MEAT)))
+                .collect(Collectors.toList());
+
+        return allMeat;
     }
 
 }
