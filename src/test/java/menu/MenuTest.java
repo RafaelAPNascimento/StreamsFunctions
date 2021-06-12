@@ -150,4 +150,18 @@ public class MenuTest {
 
         return allMeat;
     }
+
+    @Test
+    public void isThereAnyVegDishInMenu() {
+
+        boolean result = menu.stream()
+                .anyMatch(Dish::isVegetarian);
+
+        Assertions.assertTrue(result);
+    }
+
+    @Test
+    public void giveAnyVegDish() {
+        // 5.3.3
+    }
 }

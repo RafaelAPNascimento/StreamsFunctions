@@ -75,4 +75,20 @@ public class Other {
                 .collect(Collectors.toList());
     }
 
+    @DisplayName("Given 2 lists of numbers, return a list of pairs whose sum is divisible by 3 (List<Integer[]>)")
+    @Test
+    public void shouldReturnListOfPairsDivsBy3() {
+
+        List<Integer> l1 = List.of(1, 2, 3);
+        List<Integer> l2 = List.of(3, 4);
+
+        List<int[]> r =
+                l1.stream()
+                        .flatMap(n1 -> l2.stream()
+                                .filter(n2 -> (n1 + n2) % 3 == 0)
+                                .map(n2 -> new int[]{n1, n2}))
+                        .peek(arr -> System.out.println(Arrays.toString(arr)))
+                        .collect(Collectors.toList());
+    }
+
 }
